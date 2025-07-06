@@ -1,0 +1,104 @@
+{
+  "movies": {
+    "1": {
+      "title": "Demon Slayer: Kimetsu no Yaiba",
+      "desc": "120 min | Adventure | Dark Fantasy",
+      "img": "https://your-cdn.com/images/m1.jpg"
+    },
+    "2": {
+      "title": "Billa 2",
+      "desc": "120 min | Action | Crime",
+      "img": "https://your-cdn.com/images/billa.jpg"
+    },
+    "3": {
+      "title": "Batman vs Superman",
+      "desc": "120 min | Action | Fiction",
+      "img": "https://your-cdn.com/images/m3.jpg"
+    },
+    "4": {
+      "title": "John Wick 2",
+      "desc": "120 min | Action | Crime | Thriller",
+      "img": "https://your-cdn.com/images/m4.jpg"
+    },
+    "5": {
+      "title": "RRR",
+      "desc": "182 min | Drama | Action",
+      "img": "https://your-cdn.com/images/rrr.jpg"
+    },
+    "6": {
+      "title": "Jawan",
+      "desc": "170 min | Thriller | Action",
+      "img": "https://your-cdn.com/images/jawan.jpg"
+    },
+    "7": {
+      "title": "Vikram",
+      "desc": "173 min | Action | Thriller",
+      "img": "https://your-cdn.com/images/vikram.jpg"
+    },
+    "8": {
+      "title": "Beast",
+      "desc": "155 min | Action | Comedy",
+      "img": "https://your-cdn.com/images/beast.jpg"
+    },
+    "9": {
+      "title": "KGF Chapter 2",
+      "desc": "168 min | Action | Drama",
+      "img": "https://your-cdn.com/images/kgf2.jpg"
+    },
+    "10": {
+      "title": "Pushpa: The Rise",
+      "desc": "179 min | Action | Crime",
+      "img": "https://your-cdn.com/images/pushpa.jpg"
+    },
+    "11": {
+      "title": "Vada Chennai",
+      "desc": "165 min | Action | Crime | Drama",
+      "img": "https://your-cdn.com/images/vada-chennai.jpg"
+    },
+    "12": {
+      "title": "Master",
+      "desc": "179 min | Action | Thriller",
+      "img": "https://your-cdn.com/images/master.jpg"
+    },
+    "13": {
+      "title": "Kaithi",
+      "desc": "146 min | Action | Thriller",
+      "img": "https://your-cdn.com/images/kaithi.jpg"
+    },
+    "14": {
+      "title": "96",
+      "desc": "158 min | Romance | Drama",
+      "img": "https://your-cdn.com/images/96.jpg"
+    },
+    "15": {
+      "title": "Asuran",
+      "desc": "141 min | Action | Drama",
+      "img": "https://your-cdn.com/images/asuran.jpg"
+    },
+    "16": {
+      "title": "Soorarai Pottru",
+      "desc": "153 min | Biography | Drama",
+      "img": "https://your-cdn.com/images/soorarai-pottru.jpg"
+    },
+    "17": {
+      "title": "Don",
+      "desc": "165 min | Comedy | Drama",
+      "img": "https://your-cdn.com/images/don.jpg"
+    },
+    "18": {
+      "title": "Maanaadu",
+      "desc": "147 min | Action | Sci-Fi",
+      "img": "https://your-cdn.com/images/maanaadu.jpg"
+    },
+    "19": {
+      "title": "Sita Ramam",
+      "desc": "163 min | Romance | Drama",
+      "img": "https://your-cdn.com/images/sita-ramam.jpg"
+    },
+    "20": {
+      "title": "Thunivu",
+      "desc": "146 min | Action | Crime",
+      "img": "https://your-cdn.com/images/thunivu.jpg"
+    }
+  }
+}
