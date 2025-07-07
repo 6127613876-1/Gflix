@@ -1,42 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useKeenSlider } from "keen-slider/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import { ref, onValue } from "firebase/database";
 import { db } from "../firebase";
-import "keen-slider/keen-slider.min.css";
+import "swiper/css";
+
+
 
 const ComingSoon = () => {
   const [comingSoon, setComingSoon] = useState([]);
 
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    mode: "snap",
-    slides: {
-      perView: 5,
-      spacing: 30,
-    },
-    breakpoints: {
-      "(max-width: 1280px)": { slides: { perView: 4, spacing: 16 } },
-      "(max-width: 1024px)": { slides: { perView: 3, spacing: 12 } },
-      "(max-width: 768px)": { slides: { perView: 2, spacing: 10 } },
-      "(max-width: 480px)": { slides: { perView: 1, spacing: 8 } },
-    },
-    created: (instance) => {
-      setInterval(() => {
-        instance.next();
-      }, 5000); // 5 seconds
-    },
-  });
-
   useEffect(() => {
-    const comingRef = ref(db, "comingSoon/");
-    const unsubscribe = onValue(comingRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setComingSoon(Object.values(data));
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const comingRef = ref(db, "comingSoon/");
+  const unsubscribe = onValue(comingRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      const moviesArray = Object.values(data);
+      console.table(moviesArray);
+      setComingSoon(moviesArray);
+    }
+  });
+  return () => unsubscribe();
+}, []);
+
+
+  console.log(comingSoon)
 
   return (
     <section id="coming" className="py-20 bg-white dark:bg-zinc-900">
@@ -45,29 +33,42 @@ const ComingSoon = () => {
           Upcoming Movies
         </h2>
 
-        <div ref={sliderRef} className="keen-slider overflow-hidden">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={20}
+          slidesPerView={5}
+          autoplay={{ delay: 4000 }}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            480: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+            1280: { slidesPerView: 5 },
+          }}
+        >
           {comingSoon.map((movie, index) => (
-            <div
-              key={index}
-              className="keen-slider__slide bg-white dark:bg-zinc-800 rounded-xl shadow-md hover:scale-105 transition-transform duration-300 flex flex-col"
-            >
-              <img
-                src={movie.img || "/fallback.jpg"}
-                alt={movie.title}
-                className="w-full h-64 object-cover rounded-t-xl cursor-pointer"
-                onError={(e) => (e.target.src = "/fallback.jpg")}
-              />
-              <div className="p-4 text-center">
-                <h3 className="text-lg font-semibold text-zinc-900 dark:text-white line-clamp-2">
-                  {movie.title}
-                </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 whitespace-pre-line mt-1">
-                  {movie.desc}
-                </p>
+            <SwiperSlide key={index} className="h-full">
+              <div className="flex flex-col h-full bg-white cursor-pointer dark:bg-zinc-800 rounded-xl shadow-md transition-transform duration-300">
+                <img
+                  src={movie.img || "/fallback.jpg"}
+                  alt={movie.title}
+                  onError={(e) => (e.target.src = "/fallback.jpg")}
+                  className="w-full h-64   object-cover rounded-t-xl"
+                />
+                <div className="p-2 flex-1 flex flex-col justify-between">
+                  <h3 className="text-base font-semibold text-zinc-900 dark:text-white line-clamp-2 min-h-[48px] text-center">
+                    {movie.title}
+                  </h3>
+                  <p className="text-sm text-center text-zinc-600 dark:text-zinc-400  whitespace-pre-line">
+                    {movie.desc.split("|")[0].trim()} min <br />
+                    {movie.desc.split("|").slice(1).join(" | ").trim()}
+                  </p>
+
+                </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </section>
   );

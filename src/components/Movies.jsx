@@ -1,42 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import { ref as dbRef, onValue, set } from "firebase/database";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
 import { toast } from "react-hot-toast";
+import "swiper/css";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [user] = useAuthState(auth);
   const [watchlist, setWatchlist] = useState({});
-  const intervalRef = useRef(null);
-
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    mode: "snap",
-    renderMode: "performance",
-    slides: {
-      perView: 5,
-      spacing: 20,
-    },
-    breakpoints: {
-      "(max-width: 1280px)": { slides: { perView: 4, spacing: 16 } },
-      "(max-width: 1024px)": { slides: { perView: 3, spacing: 12 } },
-      "(max-width: 768px)": { slides: { perView: 2, spacing: 10 } },
-      "(max-width: 480px)": { slides: { perView: 1, spacing: 8 } },
-    },
-  });
-
-  // Auto slide every 5s
-  useEffect(() => {
-    if (instanceRef.current) {
-      intervalRef.current = setInterval(() => {
-        instanceRef.current?.next();
-      }, 5000);
-    }
-    return () => clearInterval(intervalRef.current);
-  }, [instanceRef]);
 
   // Fetch movies from Firebase
   useEffect(() => {
@@ -79,44 +53,58 @@ const Movies = () => {
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-pink-500 mb-8">Recommended Movies</h2>
 
-        <div ref={sliderRef} className="keen-slider overflow-hidden">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={20}
+          slidesPerView={5}
+          autoplay={{ delay: 4000 }}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            480: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+            1280: { slidesPerView: 5 },
+          }}
+        >
           {movies.map((movie, index) => {
             const isAdded = watchlist?.[movie.title] !== undefined;
+            const [duration, ...genres] = movie.desc?.split("|") || [];
 
             return (
-              <div
-                key={index}
-                className="keen-slider__slide bg-white dark:bg-zinc-800 rounded-xl shadow-md hover:scale-105 transition-transform duration-300 flex flex-col"
-              >
-                <img
-                  src={movie.img || "/fallback.jpg"}
-                  alt={movie.title}
-                  className="w-full h-64 object-cover rounded-t-xl cursor-pointer"
-                  onError={(e) => (e.target.src = "/fallback.jpg")}
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-zinc-800 dark:text-white line-clamp-2">
-                    {movie.title}
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 mt-1">
-                    {movie.desc}
-                  </p>
-                  <button
-                    onClick={() => handleAddToWatchlist(movie)}
-                    disabled={isAdded}
-                    className={`mt-3 px-4 py-1 rounded transition text-white ${
-                      isAdded
-                        ? "bg-green-500 cursor-not-allowed"
-                        : "bg-pink-500 hover:bg-pink-600"
-                    }`}
-                  >
-                    {isAdded ? "✓ Added" : "+ Watchlist"}
-                  </button>
+              <SwiperSlide key={index} className="h-full">
+                <div className="flex flex-col h-full cursor-pointer bg-white dark:bg-zinc-800 rounded-xl shadow-md transition-transform duration-300">
+                  <img
+                    src={movie.img || "/fallback.jpg"}
+                    alt={movie.title}
+                    onError={(e) => (e.target.src = "/fallback.jpg")}
+                    className="w-full h-64 object-cover rounded-t-xl"
+                  />
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <h3 className="text-base font-semibold text-zinc-900 dark:text-white line-clamp-2 min-h-[48px] text-center">
+                      {movie.title}
+                    </h3>
+                    <p className="text-sm text-center text-zinc-600 dark:text-zinc-400  min-h-[40px] whitespace-pre-line">
+                      {duration?.trim()} 
+                      <br />
+                      {genres.join(" | ").trim()}
+                    </p>
+                    <button
+                      onClick={() => handleAddToWatchlist(movie)}
+                      disabled={isAdded}
+                      className={`mt-3 px-4 cursor-pointer py-1 rounded transition text-white ${
+                        isAdded
+                          ? "bg-green-500 cursor-not-allowed"
+                          : "bg-pink-500 hover:bg-pink-600"
+                      }`}
+                    >
+                      {isAdded ? "✓ Added" : "+ Watchlist"}
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </SwiperSlide>
             );
           })}
-        </div>
+        </Swiper>
       </div>
     </section>
   );

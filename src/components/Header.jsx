@@ -16,37 +16,12 @@ const Header = () => {
     <header className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-zinc-900 shadow-md transition duration-300">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold text-pink-500 flex items-center gap-2">
+        <h1  className="text-xl font-bold text-pink-500 flex items-center gap-2">
           <i className="bx bxs-movie text-2xl"></i> GFlix
-        </Link>
+        </h1>
 
         {/* Navigation */}
-        <ul className="hidden md:flex items-center gap-10">
-          <li>
-            <Link
-              to="/"
-              className="text-zinc-700 dark:text-white font-medium hover:text-pink-500 transition relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <a
-              href="#movies"
-              className="text-zinc-700 dark:text-white font-medium hover:text-pink-500 transition relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300"
-            >
-              Movies
-            </a>
-          </li>
-          <li>
-            <a
-              href="#coming"
-              className="text-zinc-700 dark:text-white font-medium hover:text-pink-500 transition relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-pink-500 hover:after:w-full after:transition-all after:duration-300"
-            >
-              Coming
-            </a>
-          </li>
-        </ul>
+        
 
         {/* Auth & Profile */}
         {user ? (

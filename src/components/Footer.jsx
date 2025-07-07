@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="bg-zinc-900 text-pink-400 py-12 px-6 md:px-16">
       {/* Top Section */}
       <div className="mb-10">
-        <h1 className="text-3xl font-bold mb-2 text-white">Sakthi Cinema's</h1>
+        <h1 className="text-3xl font-bold mb-2 text-pink-400">Gflix</h1>
         <p className="text-sm text-zinc-300 max-w-lg">
           "Movies are the memories of our lifetime. We need to keep them alive"
         </p>
@@ -45,7 +45,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="text-center text-sm text-zinc-500 border-t border-zinc-700 pt-4">
-        © Sakthi Cinema's. All rights reserved.
+        © Gflix. All rights reserved.
       </div>
     </footer>
   );

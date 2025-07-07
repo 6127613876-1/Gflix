@@ -43,7 +43,7 @@ const Highlight = () => {
             title={trailers[index].title}
             width="100%"
             height="100%"
-            allow="autoplay; encrypted-media; picture-in-picture"
+            allow=" encrypted-media; picture-in-picture"
             allowFullScreen
             className="w-full h-full"
           ></iframe>
