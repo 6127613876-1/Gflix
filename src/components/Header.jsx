@@ -8,6 +8,7 @@ import { LogIn, LogOut } from "lucide-react";
 const Header = () => {
   const [user] = useAuthState(auth);
 
+
   const handleLogout = () => {
     signOut(auth);
   };

@@ -16,29 +16,29 @@ const Footer = () => {
         <div>
           <h2 className="text-white text-lg font-semibold mb-3">Categories</h2>
           <ul className="space-y-2">
-            <li><a href="/" className="hover:text-white">All</a></li>
-            <li><a href="/" className="hover:text-white">Horror</a></li>
-            <li><a href="/" className="hover:text-white">Action</a></li>
-            <li><a href="/" className="hover:text-white">Adventure</a></li>
-            <li><a href="/" className="hover:text-white">Comedy</a></li>
+            <li><a  className="hover:text-white">All</a></li>
+            <li><a  className="hover:text-white">Horror</a></li>
+            <li><a  className="hover:text-white">Action</a></li>
+            <li><a  className="hover:text-white">Adventure</a></li>
+            <li><a  className="hover:text-white">Comedy</a></li>
           </ul>
         </div>
 
         <div>
           <h2 className="text-white text-lg font-semibold mb-3">Resources</h2>
           <ul className="space-y-2">
-            <li><a href="/" className="hover:text-white">User Guides</a></li>
-            <li><a href="/" className="hover:text-white">Help</a></li>
-            <li><a href="/" className="hover:text-white">Contact</a></li>
+            <li><a  className="hover:text-white">User Guides</a></li>
+            <li><a  className="hover:text-white">Help</a></li>
+            <li><a  className="hover:text-white">Contact</a></li>
           </ul>
         </div>
 
         <div>
           <h2 className="text-white text-lg font-semibold mb-3">Company</h2>
           <ul className="space-y-2">
-            <li><a href="/" className="hover:text-white">About Us</a></li>
-            <li><a href="/" className="hover:text-white">Support</a></li>
-            <li><a href="/" className="hover:text-white">Join Us</a></li>
+            <li><a  className="hover:text-white">About Us</a></li>
+            <li><a  className="hover:text-white">Support</a></li>
+            <li><a  className="hover:text-white">Join Us</a></li>
           </ul>
         </div>
       </div>

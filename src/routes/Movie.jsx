@@ -6,7 +6,7 @@ import ComingSoon from "../components/ComingSoon";
 import Highlight from "../components/Highlight";
 import Events from "../components/Events";
 import Footer from "../components/Footer";
-// import Profile from "../components/Profile"; // Optional
+import TrendingMovies from "../components/TrendingMovies";
 
 const Movie = () => {
   return (
@@ -17,7 +17,7 @@ const Movie = () => {
         <Movies />
         <ComingSoon />
         <Highlight />
-        <Events />
+        <TrendingMovies />
         {/* <Profile /> */}
       </main>
       <Footer />

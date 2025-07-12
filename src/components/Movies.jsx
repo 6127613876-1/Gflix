@@ -12,16 +12,53 @@ const Movies = () => {
   const [user] = useAuthState(auth);
   const [watchlist, setWatchlist] = useState({});
 
-  // Fetch movies from Firebase
+  // Fetch Firebase Movies
   useEffect(() => {
     const movieRef = dbRef(db, "movies/");
     const unsubscribe = onValue(movieRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setMovies(Object.values(data));
+        setMovies((prev) => [...Object.values(data)]); // Will append API movies later
       }
     });
     return () => unsubscribe();
+  }, []);
+
+  // Fetch API Movies (only once)
+  useEffect(() => {
+    const fetchExternalMovies = () => {
+      const xhr = new XMLHttpRequest();
+      const data = null;
+
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+          try {
+            const res = JSON.parse(this.responseText);
+            const extracted = (res.data || []).map((movie) => {
+              if (!movie?.primaryImage?.url) return null;
+              return {
+                title: movie.primaryTitle,
+                img: movie.primaryImage.url,
+                desc: `${movie.ratingsSummary?.aggregateRating || "N/A"} ⭐ | ${movie.releaseDate || "N/A"}`,
+              };
+            }).filter(Boolean); // Remove nulls
+            setMovies((prev) => [...prev, ...extracted]);
+          } catch (err) {
+            console.error("Failed to parse API response", err);
+          }
+        }
+      });
+
+      xhr.open("GET", "https://imdb236.p.rapidapi.com/api/imdb/search?type=movie&genre=Drama&rows=25&sortOrder=ASC&sortField=id");
+      xhr.setRequestHeader("x-rapidapi-key", "e8285ac05fmsh664bb331148ba9ep15133fjsn59ad9a6ec01f");
+      xhr.setRequestHeader("x-rapidapi-host", "imdb236.p.rapidapi.com");
+
+      xhr.send(data);
+    };
+
+    fetchExternalMovies();
   }, []);
 
   // Fetch user's watchlist
@@ -83,18 +120,16 @@ const Movies = () => {
                     <h3 className="text-base font-semibold text-zinc-900 dark:text-white line-clamp-2 min-h-[48px] text-center">
                       {movie.title}
                     </h3>
-                    <p className="text-sm text-center text-zinc-600 dark:text-zinc-400  min-h-[40px] whitespace-pre-line">
-                      {duration?.trim()} 
+                    <p className="text-sm text-center text-zinc-600 dark:text-zinc-400 min-h-[40px] whitespace-pre-line">
+                      {duration?.trim()}
                       <br />
                       {genres.join(" | ").trim()}
                     </p>
                     <button
                       onClick={() => handleAddToWatchlist(movie)}
                       disabled={isAdded}
-                      className={`mt-3 px-4 cursor-pointer py-1 rounded transition text-white ${
-                        isAdded
-                          ? "bg-green-500 cursor-not-allowed"
-                          : "bg-pink-500 hover:bg-pink-600"
+                      className={`mt-3 px-4 py-1 rounded transition text-white ${
+                        isAdded ? "bg-green-500 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"
                       }`}
                     >
                       {isAdded ? "✓ Added" : "+ Watchlist"}
